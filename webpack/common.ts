@@ -9,7 +9,7 @@ const Common: webpack.Configuration = {
 	output: {
 		path: path.join(__dirname, '../dist'), // 打包后的文件存放的地方
 		filename: '[name].js', // 打包后输出文件的文件名
-		chunkFilename: '[name].[chunkhash].chunk.js',
+		chunkFilename: '[name].[contenthash].chunk.js',
 	},
 	resolve: {
 		extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json', '.ts', '.tsx', '.svg'],
@@ -101,7 +101,6 @@ const Common: webpack.Configuration = {
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, '../public/index.html'), // new一个这个插件的实例，并传入相关的参数
 		}),
-		// new webpack.HotModuleReplacementPlugin(), // 热更新插件
 	],
 };
 

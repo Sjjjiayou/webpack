@@ -24,6 +24,7 @@ module.exports = merge(Common, {   // 将webpack.common.ts合并到当前文件
 				NODE_ENV: JSON.stringify('development'),
 			},
 		}),
+		new webpack.HotModuleReplacementPlugin(), // 热更新插件
 		new CircularDependencyPlugin({
 			exclude: /node_modules/,
 			include: /src/,
