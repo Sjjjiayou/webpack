@@ -1,0 +1,8 @@
+**/node_modules
+dist/
+**/dist
+webpack/
+**/webpack
+server.js
+app.config.js
+.yarn
