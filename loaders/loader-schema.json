@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "名字": {
+      "type": "string",
+      "description": "请输入您的姓名"
+    },
+    "age": {
+      "type": "number",
+      "description": "请输入您的年龄"
+    }
+  },
+  "additionalProperties": true
+}
