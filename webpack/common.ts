@@ -11,6 +11,10 @@ const Common: webpack.Configuration = {
 		filename: '[name].js', // 打包后输出文件的文件名
 		chunkFilename: '[name].[contenthash].chunk.js',
 	},
+	resolveLoader: {
+		// loader路径查找顺序从左往右
+		modules: ['node_modules', './loaders'],
+	},
 	resolve: {
 		extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json', '.ts', '.tsx', '.svg'],
 		alias: {
@@ -95,6 +99,12 @@ const Common: webpack.Configuration = {
 				test: /\.(woff|woff2|eot|ttf|otf)$/i,
 				type: 'asset/resource',
 			},
+			{
+				test: /\.js$/,
+				use: [
+					'yj-loader',
+				]
+			}
 		],
 	},
 	plugins: [

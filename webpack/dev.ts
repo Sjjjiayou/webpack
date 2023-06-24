@@ -14,7 +14,7 @@ module.exports = merge(Common, {   // 将webpack.common.ts合并到当前文件
 			directory: path.join(__dirname, '../public'),
 		},
 		hot: true,
-		port: '8080',
+		port: '8081',
 		open: true,
 	},
 	plugins: [
