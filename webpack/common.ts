@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin'; // 这个插件不需要安装，是基于webpack的，需要引入webpack模块
 import svgToMiniDataURI from 'mini-svg-data-uri';
 import 'webpack-dev-server';
+import LogWebpackPlugin from '../plugin/log-webpack-plugin';
 
 const Common: webpack.Configuration = {
 	entry: path.join(__dirname, '../src/index.tsx'), // 入口文件
@@ -13,7 +14,7 @@ const Common: webpack.Configuration = {
 	},
 	resolveLoader: {
 		// loader路径查找顺序从左往右
-		modules: ['node_modules', './loaders'],
+		modules: ['node_modules', path.resolve(__dirname, '../loaders')],
 	},
 	resolve: {
 		extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json', '.ts', '.tsx', '.svg'],
@@ -21,10 +22,10 @@ const Common: webpack.Configuration = {
 			'@': path.resolve(__dirname, '../src'),
 		},
 	},
-	cache: {
-		type: 'filesystem',
-		cacheDirectory: path.join(__dirname, '../node_modules/.cache/webpack'),
-	},
+	// cache: {
+	// 	type: 'filesystem',
+	// 	cacheDirectory: path.join(__dirname, '../node_modules/.cache/webpack'),
+	// },
 	module: {
 		rules: [
 			{
@@ -100,9 +101,15 @@ const Common: webpack.Configuration = {
 				type: 'asset/resource',
 			},
 			{
-				test: /\.js$/,
+				test: /\.(j|t)s(x?)$/,
 				use: [
-					'yj-loader',
+					{
+						loader: 'yj-loader',
+						options: {
+							name: 'lyj',
+							age: 18
+						}
+					}
 				]
 			}
 		],
@@ -111,6 +118,17 @@ const Common: webpack.Configuration = {
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, '../public/index.html'), // new一个这个插件的实例，并传入相关的参数
 		}),
+		new LogWebpackPlugin({
+			emitCallback: () => {
+				console.log('emit 事件发生啦')
+			},
+			compilationCallback: () => {
+				console.log('compilation 事件发生啦')
+			},
+			doneCallback: () => {
+				console.log('done 事件发生啦')
+			},
+		})
 	],
 };
 
